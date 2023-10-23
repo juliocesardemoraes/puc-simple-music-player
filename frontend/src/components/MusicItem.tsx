@@ -8,7 +8,7 @@ export default function MusicItem({
   className = "",
 }: {
   songInfo: musicFile;
-  className: string;
+  className?: string;
 }) {
   return (
     <div
