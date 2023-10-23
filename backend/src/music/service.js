@@ -1,6 +1,6 @@
 const path = require("path");
 const musicDirectory = path.join(__dirname, "/assets/music");
-const imageDirectory = path.join(process.cwd(), "/assets/album");
+const imageDirectory = path.join(__dirname, "/assets/album");
 const fs = require("fs");
 
 /**

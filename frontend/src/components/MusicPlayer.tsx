@@ -2,18 +2,15 @@
 import React, { useEffect, useState } from "react";
 import styles from "@/styles/Home.module.css";
 import { fetchMusic, fetchMusicList } from "@/api/music";
-
-interface musicFile {
-  author: "string";
-  file: "string";
-  song: "string";
-  imageAlbum: "string";
-}
+import Image from "next/image";
+import Audio from "./Audio";
+import { musicFile } from "@/types/types";
+import MusicItem from "./MusicItem";
 
 export default function MusicPlayer() {
   const [song, setSong] = useState<any>("");
   const [songList, setSongList] = useState<Array<musicFile> | []>([]);
-  const [playingNow, setPlayingNow] = useState("");
+  const [playingNow, setPlayingNow] = useState<musicFile | any>("");
   useEffect(() => {
     const fetchMusicUseEffect = async () => {
       const songListFromApi = await fetchMusicList();
@@ -24,7 +21,7 @@ export default function MusicPlayer() {
 
   const selectSong = async (file: musicFile) => {
     const music = await fetchMusic(file.file);
-    setPlayingNow(file.song);
+    setPlayingNow(file);
     setSong(music);
   };
 
@@ -36,19 +33,24 @@ export default function MusicPlayer() {
       <div className={`${styles.block}`}>
         <div className={`${styles.block__container}`}>
           <div className={`${styles.music__player}`}>
-            {song && (
-              <audio controls>
-                <source src={song} type="audio/mp3" />
-                Your browser does not support the audio element.
-              </audio>
+            {playingNow?.imageAlbum && (
+              <Image
+                alt="Music Album Image"
+                width={150}
+                height={180}
+                src={`https://puc-web-player-backend.vercel.app${playingNow.imageAlbum}`}
+              ></Image>
             )}
+            {song && <Audio song={song}></Audio>}
           </div>
         </div>
         <div className={`${styles.block__container} ${styles.music__list}`}>
+          <h1>Playlist</h1>
+
           {song && (
             <>
-              <h3>Tocando Agora</h3>
-              <h3>{playingNow}</h3>
+              <h2>Tocando Agora</h2>
+              <MusicItem songInfo={playingNow}></MusicItem>
               <hr></hr>
             </>
           )}
@@ -58,18 +60,11 @@ export default function MusicPlayer() {
                 return (
                   <div
                     key={songInfo.file}
-                    className={`${styles.music__list__item}`}
                     onClick={() => {
                       selectSong(songInfo);
                     }}
                   >
-                    <div className="song__info">
-                      <h3>{songInfo.song}</h3>
-                      <h4>{songInfo.author}</h4>
-                    </div>
-                    <img
-                      src={`https://puc-web-player-backend.vercel.app/src${songInfo.imageAlbum}`}
-                    ></img>
+                    <MusicItem songInfo={songInfo}></MusicItem>
                   </div>
                 );
               })}

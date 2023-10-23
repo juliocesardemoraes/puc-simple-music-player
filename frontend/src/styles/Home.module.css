@@ -16,7 +16,14 @@
 .music__player {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
   width: 75%;
+}
+
+.music__player img {
+  object-fit: cover;
 }
 
 .music__player audio {
@@ -25,7 +32,6 @@
 
 .music__list {
   font-size: 12px !important;
-  height: 25vh !important;
   flex-direction: column;
   justify-content: flex-start;
   gap: 1rem;
@@ -46,5 +52,9 @@
 @media only screen and (max-width: 600px) {
   .block {
     flex-direction: column;
+  }
+
+  .music__list {
+    height: 25vh !important;
   }
 }
