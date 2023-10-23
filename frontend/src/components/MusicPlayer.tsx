@@ -56,6 +56,7 @@ export default function MusicPlayer() {
           )}
           {songList?.length > 0 && (
             <>
+              <h2>Musicas da playlist</h2>
               {songList?.map((songInfo) => {
                 return (
                   <div
@@ -64,7 +65,10 @@ export default function MusicPlayer() {
                       selectSong(songInfo);
                     }}
                   >
-                    <MusicItem songInfo={songInfo}></MusicItem>
+                    <MusicItem
+                      songInfo={songInfo}
+                      className={"song__item__selectable"}
+                    ></MusicItem>
                   </div>
                 );
               })}
