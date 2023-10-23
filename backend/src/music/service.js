@@ -3,11 +3,20 @@ const musicDirectory = path.join(__dirname, "/assets/music");
 const imageDirectory = path.join(process.cwd(), "/assets/album");
 const fs = require("fs");
 
+/**
+ * Get Specific music path
+ * @param {*} filename music name
+ * @returns playable format of the music
+ */
 const getMusicMp3 = (filename) => {
   const filePath = path.join(musicDirectory, filename);
   return filePath;
 };
 
+/**
+ * Get Music Info Function
+ * @returns {Array} Array with all the musics from this backend directory
+ */
 const getMusicInfo = () => {
   const musicFiles = [];
 
@@ -29,8 +38,7 @@ const getMusicInfo = () => {
         });
       }
     } catch (error) {
-      console.log("ERROR", error);
-      throw error;
+      return { error: true, errorMessage: error };
     }
   });
 

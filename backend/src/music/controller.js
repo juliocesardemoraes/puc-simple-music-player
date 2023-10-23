@@ -13,6 +13,11 @@ musicRouter.get("/music/:filename", (req, res) => {
 
 musicRouter.get("/music", (req, res) => {
   const musicFiles = getMusicInfo();
+
+  if (musicFiles?.error) {
+    return res.status(500).json(musicFiles);
+  }
+
   res.json({ musicFiles });
 });
 
