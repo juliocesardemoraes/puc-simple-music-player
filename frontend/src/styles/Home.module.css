@@ -49,6 +49,21 @@
   object-fit: cover;
 }
 
+.song__item {
+  border: 1px solid #fff;
+}
+
+.song__item__selectable:hover {
+  background: #fff;
+  color: #222;
+  cursor: pointer;
+  transition: 1s all;
+}
+
+.song__item__selectable:hover .dark__hover {
+  color: #222 !important;
+}
+
 @media only screen and (max-width: 600px) {
   .block {
     flex-direction: column;
